@@ -7,19 +7,20 @@ const CLUBS = 'clubs';
 const COUPS = 'coups';
 
 const suits = [COINS, SWORDS, CLUBS, COUPS];
+const numbers = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12];
 
-const generateCards = (num: number) => {
-  const nums: number[] = []
-  return [...Array(num).keys()].map((i) => {
-    let n;
-    do {
-      n = Math.floor(Math.random() * 40);
-    } while(nums.includes(n))
-    nums.push(n);
-    const suit = suits[Math.floor(n / 10)];
-    const num = (n % 10) + 1;
-    return new CCard(num < 8 ? num : num + 2, suit)
-  });
+const generateCards = () => {
+  const cards = []
+  for (const i of suits) {
+    for (const j of numbers) {
+      cards.push(new CCard(j, i));
+    }
+  }
+  for (let i = 0; i < cards.length; i++) {
+    const j = Math.floor(Math.random() * (cards.length - i)) + i;
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  return cards;
 }
 
 class CCard {
@@ -71,7 +72,7 @@ class CCard {
 
 class CHand {
   constructor(public n: number,) {
-
+    const cards = generateCards();
   }
 }
 
@@ -83,21 +84,16 @@ class CPlayer {
 
 class CGame {
   constructor(players: number) {
-    const cards = generateCards(3 * players);
   }
 }
 
 export const Game = () => {
-  const cards = generateCards(6);
-
-  cards.forEach((card) => {
-    console.log(card)
-  });
+  const cards = generateCards();
 
   return (
     <div>
       <h2>Welcome to Truco</h2>
-      {cards.map((card) => (
+      {cards.splice(0, 3).map((card) => (
         <Card number={card.number} suits={card.suit} />
       ))}
     </div>
