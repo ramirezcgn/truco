@@ -39,7 +39,7 @@ class CCard {
     return this.s;
   }
 
-  get weigth() {
+  get weight() {
     if (this.n > 3) {
       if (this.n === 7) {
         if (this.s === COINS) {
