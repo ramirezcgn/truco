@@ -1,0 +1,52 @@
+
+.card {
+  display: inline-block;
+  background-image: url('../../images/cards.png');
+  width: 140px;
+  height: 210px;
+  margin: 10px;
+}
+
+@function calcX($number) {
+  @return -(($number - 1) * 157.4px) - 21px;
+}
+
+.coins {
+  background-position-y: -22px;
+
+  @for $i from 1 through 10 {
+    &--n#{if($i < 8, $i, $i + 2)} {
+      background-position-x: calcX($i);
+    }
+  }
+}
+
+.swords {
+  background-position-y: -705px;
+
+  @for $i from 1 through 10 {
+    &--n#{if($i < 8, $i, $i + 2)} {
+      background-position-x: calcX($i);
+    }
+  }
+}
+
+.clubs {
+  background-position-y: -478px;
+
+  @for $i from 1 through 10 {
+    &--n#{if($i < 8, $i, $i + 2)} {
+      background-position-x: calcX($i);
+    }
+  }
+}
+
+.coups {
+  background-position-y: -248px;
+
+  @for $i from 1 through 10 {
+    &--n#{if($i < 8, $i, $i + 2)} {
+      background-position-x: calcX($i);
+    }
+  }
+}
